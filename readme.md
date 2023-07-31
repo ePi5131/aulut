@@ -1,4 +1,4 @@
-# aulut
+# aulut v1.0
 (C) 2023 ePi
 
 ## これなに？
