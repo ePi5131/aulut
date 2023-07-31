@@ -1,0 +1,50 @@
+--[[
+    aulut.anm
+    (C) 2023 ePi
+
+    LUTスクリプトです
+
+    概要
+        LUT(.CUBEファイル)の効果を適用します
+        512x512か256x240のLUTを表す画像も使えます
+    
+    詳細
+        参照 にLUTのファイルを指定してください
+        変なファイルが来たらLuaのエラーを出します
+
+        afはエフェクトの適用度です
+        プレビュー を1にするとLUTを画像として見ることができます
+        再読込にチェックを入れるとLUTキャッシュを破棄します ファイルに変更があった場合On>Offをしてください
+]]
+--track0:af,0,100,100,0.01
+--track1:プレビュー,0,1,0,1
+--check0:再読込,0
+--file:
+tonumber(nil)
+xpcall(function()
+local aulut=require"aulut"
+
+local af=obj.track0*.01
+local preview=obj.track1~=0
+local reload=obj.check0
+
+if(file)then
+    if(reload)then
+        aulut.reset(file)
+    end
+    local lut=aulut.preload(file)
+    if(preview)then
+        if(obj.getpixel()==0)then obj.load("figure","四角形",0,1)end
+        if(lut.type==1)then
+            obj.effect("リサイズ","X",256,"Y",240,"補間なし",1,"ドット数でサイズ指定",1)
+        else
+            obj.effect("リサイズ","X",512,"Y",512,"補間なし",1,"ドット数でサイズ指定",1)
+        end
+        obj.putpixeldata(aulut.image(lut,(obj.getpixeldata"work")))
+    else
+        if(af<=0)then return end
+        obj.putpixeldata(aulut.main(lut,af,obj.getpixeldata()))
+    end
+else error("LUTファイルを指定して下さい")end
+
+end,function(s)error("[aulut.anm]"..s)end)

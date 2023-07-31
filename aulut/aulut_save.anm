@@ -1,0 +1,45 @@
+--[[
+    aulut_save.anm
+    (C) 2023 ePi
+
+    作ったLUTをcubeファイルに保存できます
+    512x512または256x240の画像データに使ってください
+
+    再生位置をこの効果の場所にして「保存」を押すと保存ダイアログが出てきます
+    やることが済んだらまた「保存」を押してチェックボックスをオフにします
+
+    512x512の画像データが渡された場合、3次元LUTデータとして扱います
+    8x8のブロックに分けて、左上から右、下へとBが大きくなります 各ブロックは左から右にR、上から下にGが大きくなります
+
+    256x240の画像データが渡された場合、1次元LUTデータとして扱います
+    1,81,161行目のR,G,B値がR,G,Bの値を表します
+
+    aulut_std.obj と一緒に使うことを想定しています
+
+    title はcubeファイルのTITLEを指定するものです いる？空でもよいです
+    合法なcubeファイルにするには英数字しか使えません
+
+    min maxはDOMAIN_MINとDOMAIN_MAXを設定するところで、{0,1}のようなテーブルを入れます
+    何も入れなければ{0,255}を使います こうするとファイルサイズが小さめになります
+    一部のちゃんとcubeファイルを読まないソフトウェアには{0,1}を入れないと使えません
+]]
+--check0:実行,0
+--dialog:title,_1="";min max,_2=nil;
+xpcall(function()
+local aulut=require"aulut"
+if not(obj.check0)then return end
+
+local title=_1
+if(title=="")then title=nil end
+
+local domain_minmax=_2
+
+local w,h=obj.getpixel()
+local type
+if(w==512 and h==512)then type=3
+elseif(w==256 and h==240)then type=1
+else error"512x512または256x240の画像データに使ってください"
+end
+aulut.save(nil,obj.getpixeldata(),type,title,domain_minmax)
+
+end,function(s)print("[aulut_save.anm]"..s)end)

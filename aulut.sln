@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "aulut", "aulut\aulut.vcxproj", "{9D0C51FD-0988-4F76-88E3-2F7C4DDF3F1A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86(AVX2) = Debug|x86(AVX2)
+		Debug|x86(AVX512) = Debug|x86(AVX512)
+		Debug|x86(SSE2) = Debug|x86(SSE2)
+		Debug|x86(SSE4) = Debug|x86(SSE4)
+		Release|x86(AVX2) = Release|x86(AVX2)
+		Release|x86(AVX512) = Release|x86(AVX512)
+		Release|x86(SSE2) = Release|x86(SSE2)
+		Release|x86(SSE4) = Release|x86(SSE4)
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9D0C51FD-0988-4F76-88E3-2F7C4DDF3F1A}.Debug|x86(AVX2).ActiveCfg = Debug(AVX2)|Win32
+		{9D0C51FD-0988-4F76-88E3-2F7C4DDF3F1A}.Debug|x86(AVX2).Build.0 = Debug(AVX2)|Win32
+		{9D0C51FD-0988-4F76-88E3-2F7C4DDF3F1A}.Debug|x86(AVX512).ActiveCfg = Debug(AVX512)|Win32
+		{9D0C51FD-0988-4F76-88E3-2F7C4DDF3F1A}.Debug|x86(AVX512).Build.0 = Debug(AVX512)|Win32
+		{9D0C51FD-0988-4F76-88E3-2F7C4DDF3F1A}.Debug|x86(SSE2).ActiveCfg = Debug(SSE2)|Win32
+		{9D0C51FD-0988-4F76-88E3-2F7C4DDF3F1A}.Debug|x86(SSE2).Build.0 = Debug(SSE2)|Win32
+		{9D0C51FD-0988-4F76-88E3-2F7C4DDF3F1A}.Debug|x86(SSE4).ActiveCfg = Debug(SSE4)|Win32
+		{9D0C51FD-0988-4F76-88E3-2F7C4DDF3F1A}.Debug|x86(SSE4).Build.0 = Debug(SSE4)|Win32
+		{9D0C51FD-0988-4F76-88E3-2F7C4DDF3F1A}.Release|x86(AVX2).ActiveCfg = Release(AVX2)|Win32
+		{9D0C51FD-0988-4F76-88E3-2F7C4DDF3F1A}.Release|x86(AVX2).Build.0 = Release(AVX2)|Win32
+		{9D0C51FD-0988-4F76-88E3-2F7C4DDF3F1A}.Release|x86(AVX512).ActiveCfg = Release(AVX512)|Win32
+		{9D0C51FD-0988-4F76-88E3-2F7C4DDF3F1A}.Release|x86(AVX512).Build.0 = Release(AVX512)|Win32
+		{9D0C51FD-0988-4F76-88E3-2F7C4DDF3F1A}.Release|x86(SSE2).ActiveCfg = Release(SSE2)|Win32
+		{9D0C51FD-0988-4F76-88E3-2F7C4DDF3F1A}.Release|x86(SSE2).Build.0 = Release(SSE2)|Win32
+		{9D0C51FD-0988-4F76-88E3-2F7C4DDF3F1A}.Release|x86(SSE4).ActiveCfg = Release(SSE4)|Win32
+		{9D0C51FD-0988-4F76-88E3-2F7C4DDF3F1A}.Release|x86(SSE4).Build.0 = Release(SSE4)|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4FFC40E4-2376-4AC0-B923-0158C7163EDD}
+	EndGlobalSection
+EndGlobal
