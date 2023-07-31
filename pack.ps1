@@ -1,6 +1,7 @@
 function GetFilePaths([string] $cfg) {
     return @(
         ".\LICENSE"
+        ".\credits.md"
         ".\aulut\aulut.anm"
         ".\aulut\aulut_save.anm"
         ".\aulut\aulut_std.obj"
