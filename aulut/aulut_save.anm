@@ -25,7 +25,7 @@
 ]]
 --check0:実行,0
 --dialog:title,_1="";min max,_2=nil;
-xpcall(function()
+local b,s=pcall(function()
 local aulut=require"aulut"
 if not(obj.check0)then return end
 
@@ -42,4 +42,4 @@ else error"512x512または256x240の画像データに使ってください"
 end
 aulut.save(nil,obj.getpixeldata(),type,title,domain_minmax)
 
-end,function(s)print("[aulut_save.anm]"..s)end)
+end)if not b then error("[aulut.anm]"..s)end

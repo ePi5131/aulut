@@ -29,7 +29,10 @@
     </Link>
     <PostBuildEvent>
       <Command>copy /Y "$(TargetPath)" "$(SolutionDir)Test\$(TargetFileName)"
-copy /Y "$(OutDir)$(TargetName).pdb" "$(SolutionDir)Test\$(TargetName).pdb"</Command>
+copy /Y "$(OutDir)$(TargetName).pdb" "$(SolutionDir)Test\$(TargetName).pdb"
+copy /Y "$(ProjectDir)aulut.anm" "$(SolutionDir)Test\script\aulut.anm"
+copy /Y "$(ProjectDir)aulut_save.anm" "$(SolutionDir)Test\script\aulut_save.anm"
+copy /Y "$(ProjectDir)aulut_std.obj" "$(SolutionDir)Test\script\aulut_std.obj"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup />

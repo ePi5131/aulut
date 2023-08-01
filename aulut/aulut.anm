@@ -20,8 +20,7 @@
 --track1:プレビュー,0,1,0,1
 --check0:再読込,0
 --file:
-tonumber(nil)
-xpcall(function()
+tonumber(nil)local b,s=pcall(function()
 local aulut=require"aulut"
 
 local af=obj.track0*.01
@@ -46,5 +45,4 @@ if(file)then
         obj.putpixeldata(aulut.main(lut,af,obj.getpixeldata()))
     end
 else error("LUTファイルを指定して下さい")end
-
-end,function(s)error("[aulut.anm]"..s)end)
+end)if not b then error("[aulut.anm]"..s)end

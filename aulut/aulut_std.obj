@@ -5,10 +5,10 @@
     LUT用のテーブル画像データを生成します
 ]]
 --track0:3d/1d,0,1,0,1
-xpcall(function()
+local b,s=pcall(function()
 local w,h,t=512,512,3
 if(obj.track0==1)then w,h,t=256,240,1 end
 obj.setoption("dst","tmp",w,h)
 obj.copybuffer("obj","tmp")
 obj.putpixeldata(require"aulut".std(t,(obj.getpixeldata"work")))
-end,function(s)print("[aulut_std.anm]"..s)end)
+end)if not b then error("[aulut_std.obj]"..s)end

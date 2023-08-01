@@ -17,10 +17,15 @@ function Invoke-AulutCpuId {
 
 function Test-AulutSupportsAvx512 {
     $a70,$b70,$c70,$d70 = Invoke-AulutCpuId 7 0
-    ($b70 -shr 16) -band 1
+    $ret = ($b70 -shr 16) # AVX-512F
+    $ret = $ret -band ($b70 -shr 17) # AVX-512DQ
+    $ret = $ret -band ($b70 -shr 30) # AVX-512BW
+    $ret = $ret -band ($b70 -shr 31) # AVX-512VL
+    $ret -band 1
+
+    # [Avx512F]::IsSupported -and [Avx512VL]::IsSupported -and [Avx512DQ]::IsSupported -and [Avx512BW]::IsSupported # .NET 8
 }
 
-# if([Avx512]::IsSupported) { # .NET 8
 if (Test-AulutSupportsAvx512) {
     "AVX512"
 }

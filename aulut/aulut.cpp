@@ -370,24 +370,62 @@ namespace aulut {
 	});
 }
 
+using AulutAVX512 = simden::intrinsics<simden::intrinsics_flag(
+	simden::itAVX512F,
+	simden::itAVX512BW,
+	simden::itAVX512DQ,
+	simden::itAVX512VL
+)>;
+
+using AulutSSE4 = simden::intrinsics<simden::intrinsics_flag(
+	simden::itSSE41,
+	simden::itSSE42
+)>;
+
+std::array<std::string_view, 4> versions{
+	"SSE2",
+	"SSE4",
+	"AVX2",
+	"AVX512"
+};
+
+int get_best_version(simden::intrinsics_flag flag) {
+	if (AulutAVX512::is_supported(flag)) {
+		return 3;
+	}
+	if (CubeHpp::AVX2::is_supported(flag)) {
+		return 2;
+	}
+	if (AulutSSE4::is_supported(flag)) {
+		return 1;
+	}
+	return 0;
+}
+
 int __cdecl luaopen_aulut(lua_State* _l) {
 	Lua::State L{_l};
 	try {
-		#ifdef AULUT_INTRINSICS_MODE
-			#if AULUT_INTRINSICS_MODE == AULUT_INTRINSICS_MODE_AVX512 && !defined(SIMDEN_EMULATE_INTRINSICS)
-				if (!CubeHpp::AVX512::is_supported(simden::get_intrinsics_flag())) {
-					throw Lua::Exception{ "Your CPU is not supported this feature." };
-				}
-			#elif AULUT_INTRINSICS_MODE == AULUT_INTRINSICS_MODE_AVX2 && !defined(SIMDEN_EMULATE_INTRINSICS)
-				if (!CubeHpp::AVX2::is_supported(simden::get_intrinsics_flag())) {
-					throw Lua::Exception{ "Your CPU doesn't support this feature." };
-				}
-			#elif AULUT_INTRINSICS_MODE == AULUT_INTRINSICS_MODE_SSE4 && !defined(SIMDEN_EMULATE_INTRINSICS)
-				if (!simden::intrinsics<simden::intrinsics_flag(simden::itSSE41)> ::is_supported(simden::get_intrinsics_flag())) {
-					throw Lua::Exception{ "Your CPU doesn't support this feature." };
-				}
-			#endif
+		const auto flag = simden::get_intrinsics_flag();
+		const auto best = get_best_version(flag);
+		const auto current = 
+		#if AULUT_INTRINSICS_MODE == AULUT_INTRINSICS_MODE_AVX512
+			3
+		#elif AULUT_INTRINSICS_MODE == AULUT_INTRINSICS_MODE_AVX2
+			2
+		#elif AULUT_INTRINSICS_MODE == AULUT_INTRINSICS_MODE_SSE4
+			1
+		#else
+			0
 		#endif
+			;
+		#if defined(AULUT_INTRINSICS_MODE) && !defined(SIMDEN_EMULATE_INTRINSICS)
+			if (current > best) {
+				throw Lua::Exception{ "Your CPU doesn't support this version. Use {} version.", versions[best] };
+			}
+		#endif
+		if (current < best) {
+			std::cout << "[aulut] Your CPU supports " << versions[best] << " version." << std::endl;
+		}
 
 		L.registerLib("aulut", aulut::reg);
 
