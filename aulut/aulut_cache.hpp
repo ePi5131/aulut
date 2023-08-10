@@ -11,12 +11,12 @@
 
 namespace aulut {
 	inline auto my_cube_from_file(const std::filesystem::path& path) {
-#if AULUT_INTRINSICS_MODE == AULUT_INTRINSICS_MODE_SSE
-		return CubeHpp::cube_bgra32_from_file(path);
+#if AULUT_INTRINSICS_MODE == AULUT_INTRINSICS_MODE_AVX512
+		return CubeHpp::cube_bgra32_avx512_from_file(path);
 #elif AULUT_INTRINSICS_MODE == AULUT_INTRINSICS_MODE_AVX2
 		return CubeHpp::cube_bgra32_avx2_from_file(path);
-#elif AULUT_INTRINSICS_MODE == AULUT_INTRINSICS_MODE_AVX512
-		return CubeHpp::cube_bgra32_avx512_from_file(path);
+#else
+		return CubeHpp::cube_bgra32_from_file(path);
 #endif
 	}
 
